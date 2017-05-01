@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>isOnline frontend interface</title>
+  </head>
+  <body>
+  <p>Remember: more than 10 requests per 10 second period to the isOnline backend API will mark you as a bot account. If this happens, simply contact chooper100. Thanks.</p>
+    <span>
+      <p>The first step is to get a key. To do this, please visit <a href="https://scratchtools.tk/isonline/register/">this page</a> and on the last step you will recieve an activation link. This link will look something like this: <em>https://scratch.mit.edu/isonline-extension/verify#<strong>123456789012345</strong></em>. The bolded section, the numbers, should be entered into the box below.</p>
+      <p><input type="number" plaeholder="Type the number here" id="key"><br/>
+      <input type="text" placeholder="Your username here" id="username"><button onclick="key_set(document.getElementById('key').value, document.getElementById('username').value);">Okay, I've done that</button></p>
+    </span>
+    <div>
+      <p>@<input type="text" placeholder="Who to check?" id="who"><button onclick="check(document.getElementById('who'), this);">Go</button>
+    </div>
+    <script>
+    var key, username;
+    var div = document.getElementsByTagName("div")[0];
+    var span = document.getElementsByTagName("span");
+    div.style.visibility = "hidden";
+    function key_set(value, uname){
+      key = value;
+      username = uname;
+      div.style.visibility = "visible";
+      span.style.visibility = "hidden";
+    }
+    function check(name, cb){
+      var inet = new XMLHttpRequest();
+      inet.open("GET", `https://scratchtools.tk/isonline/api/v1/${username}/${key}/get/${name}/`);
+      inet.onreadystatechange = function(){
+        var resp = JSON.parse(inet.responseText);
+        // more stuff down here TODO!!
+      }
+    }
+    </script>
+  <body>
+</html>
